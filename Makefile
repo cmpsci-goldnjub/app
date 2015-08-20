@@ -1,6 +1,6 @@
 BOOTSTRAP_URL=https://bootstrap.pypa.io/bootstrap-buildout.py
 
-.PHONY: default project clean very-clean
+.PHONY: default project clean
 
 default: bin/buildout
 	python bin/buildout
@@ -18,9 +18,3 @@ db:
 
 clean:
 	find ./ -name *.pyc -delete
-
-very-clean: clean
-	@# This may vary depending where buildout sticks stuff.
-	rm -f bootstrap.py
-	rm -rf bin/
-	rm -rf var/
