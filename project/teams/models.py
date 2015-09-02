@@ -10,9 +10,8 @@ import bleach
 import markdown
 
 name_validator = RegexValidator(
-    regex=r"[\w-\.:\s]+",
-    message="Names can contain letters, numbers, dashes," +\
-    "periods, colons, and whitespace."
+    regex=r"[\w\-.:\s]+",
+    message="Names can contain letters, numbers, dashes, periods, colons, and whitespace."
 )
 
 class Team(models.Model):
@@ -23,7 +22,7 @@ class Team(models.Model):
 
     slug = models.SlugField(primary_key=True)
 
-    name = models.CharField(max_length=50, validator=name_validator,
+    name = models.CharField(max_length=50, validators=[name_validator],
                             help_text="Your team's project name!")
     description = models.TextField(blank=True,
                                    help_text="Tell us about your project! Or don't. It's up to you!")
