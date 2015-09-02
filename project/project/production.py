@@ -11,6 +11,9 @@ from project.project.defaults import *
 # Since we're deploying on h4h.mst.edu, SITE_ID should be 2.
 SITE_ID = 2
 
+ALLOWED_HOSTS = ["h4h.mst.edu"]
+
+
 # Since we're behind a proxy
 USE_X_FORWARDED_HOST = True
 
