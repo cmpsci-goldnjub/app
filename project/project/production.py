@@ -2,7 +2,7 @@
 Production-ready deployment settings
 
 """
-from project.settings.defaults import *
+from project.project.defaults import *
 
 # Choose which site we're using. initial_data.yaml installs some
 # fixture data so that localhost:8000 has SIDE_ID == 1, and

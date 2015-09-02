@@ -4,8 +4,8 @@ Development settings
 WARNING: These settings are NOT suitable for production.
 
 """
-import project.settings.defaults as default_settings
-from project.settings.defaults import *
+import project.project.defaults as default_settings
+from project.project.defaults import *
 
 # Choose which site we're using. initial_data.yaml installs some
 # fixture data so that localhost:8000 has SIDE_ID == 1, and
