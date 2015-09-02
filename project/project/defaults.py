@@ -170,21 +170,16 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(PROJECT_DIR, "templates")],
-        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 # Django
-                'django.core.context_processors.media',
-                'django.core.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.csrf',
                 'django.template.context_processors.debug',
+                'django.template.context_processors.media',
                 'django.template.context_processors.request',
-
-                # Allauth
-                'allauth.account.context_processors.account',
-                'allauth.socialaccount.context_processors.socialaccount',
+                'django.template.context_processors.static',
             ],
             'loaders': [
                 'django.template.loaders.filesystem.Loader',
@@ -259,9 +254,9 @@ INSTALLED_APPS = (
     # Rest Framework
     'rest_framework',
 
-    # Sentry client
-    'raven.contrib.django.raven_compat',
-
     # Django Extensions
     'django_extensions',
+
+    # Sentry client
+    'raven.contrib.django.raven_compat',
 )
