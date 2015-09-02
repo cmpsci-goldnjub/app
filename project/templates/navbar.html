@@ -13,7 +13,7 @@
       </a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-left">
         <li id="home-nav"><a href="/">Home</a></li>
         <li id="about-nav" class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <i class="fa fa-angle-down"></i></a>
@@ -27,6 +27,24 @@
         <li id="rules-nav"><a href="/rules/">Rules</a></li>
         <li id="teams-nav"><a href="/teams/">Teams</a></li>
         <li id="faq-nav"><a href="/faq/">FAQ</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user"></i>&nbsp;&nbsp;My H4H
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Thing</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{% url 'socialaccount_connections' %}">My Connections</a></li>
+            <li><a href="{% url 'account_logout' %}">Logout</a></li>
+          </ul>
+        </li>
+        {% else %}
+        <li><a href="#">Link</a></li>
+        {% endif %}
       </ul>
     </div><!--/.nav-collapse -->
   </div>
