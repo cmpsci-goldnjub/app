@@ -268,6 +268,9 @@ INSTALLED_APPS = (
     # Compressor
     'compressor',
 
+    # H4H apps
+    'project.teams',
+
     # Sentry client
     'raven.contrib.django.raven_compat',
 )
