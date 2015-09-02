@@ -157,8 +157,17 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 
+COMPRESS_PRECOMPILERS = (
+    ('text/coffeescript', 'coffee --compile --stdio'),
+    ('text/x-sass', 'sass {infile} {outfile}'),
+    ('text/x-scss', 'sass --scss {infile} {outfile}'),
+)
+
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
 
 ##########################################################################
 #
@@ -256,6 +265,9 @@ INSTALLED_APPS = (
 
     # Django Extensions
     'django_extensions',
+
+    # Compressor
+    'compressor',
 
     # Sentry client
     'raven.contrib.django.raven_compat',

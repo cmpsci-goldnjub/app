@@ -65,3 +65,6 @@ bootstrap.py
 
 # Secret files
 secret_settings.py
+
+# SCSS generated files
+.sass-cache/
