@@ -34,11 +34,17 @@ except ImportError:
 # When a user successfully logs in, redirect here by default
 LOGIN_REDIRECT_URL = '/'
 
+# The address to redirect to when a user must authenticate
+LOGIN_URL = '/accounts/google/login/?process=login'
+
 # Require that users who are signing up provide an email address
 ACCOUNT_EMAIL_REQUIRED = True
 
+# Don't store login tokens. We don't need them.
+SOCIALACCOUNT_STORE_TOKENS = False
+
 # Try to pull username/email from provider.
-SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_AUTO_SIGNUP = False
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
