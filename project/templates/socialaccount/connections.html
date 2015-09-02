@@ -24,7 +24,7 @@
         <div class="radio">
           <label for="id_account_{{ base_account.id }}">
             <input id="id_account_{{ base_account.id }}" type="radio" name="account" value="{{ base_account.id }}"/>
-            <b>{{ account }}</b>: {{ base_account.extra_data.email }}
+            <b>{{ account }}</b>&nbsp;&nbsp;<span class="text-muted">{{ base_account.extra_data.email }}</span>
           </label>
         </div>
         {% endwith %}
