@@ -5,12 +5,13 @@ BOOTSTRAP_URL=https://bootstrap.pypa.io/bootstrap-buildout.py
 default: bin/buildout
 	python bin/buildout
 
-bin/buildout: bootstrap.py
+bin/buildout: bin/bootstrap.py
 	mkdir -p var/
-	python bootstrap.py
+	python bin/bootstrap.py
 
-bootstrap.py:
-	curl $(BOOTSTRAP_URL) > bootstrap.py
+bin/bootstrap.py:
+	mkdir -p bin/
+	curl $(BOOTSTRAP_URL) > bin/bootstrap.py
 
 # Destroys existing test database and creates a new one
 db:
