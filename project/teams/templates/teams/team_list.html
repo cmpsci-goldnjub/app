@@ -1,1 +1,43 @@
 {% extends "base.html" %}
+
+{% block base_content %}
+
+<div class="container">
+
+  <div class="visible-xs row has-inner-drawer">
+    <div id="drawer" class="drawer drawer-inside dw-xs-10 fold" aria-labelledby="drawer">
+      <div class="drawer-controls">
+        <a href="#drawer" data-toggle="drawer" class="btn btn-sm">
+          <i class="fa fa-chevron-right"></i>
+          <i class="fa fa-chevron-left" style="display:none;"></i>
+        </a>
+      </div>
+      <div class="drawer-contents">
+        <ul class="drawer-nav">
+          {% include "teams/_team_sidebar.html" %}
+        </ul>
+      </div>
+    </div>
+    <div class="col-xs-offset-2 col-xs-10">
+      <p>You can also use panels inside of other elements that have
+        a defined with and height.</p>
+      <p>You'll have to be responsible for making sure your controls accessible.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+
+      <div class="hidden-xs row has-inner-drawer">
+        <div class="col-xs-4">
+          {% include "teams/_team_sidebar.html" %}
+        </div>
+
+        <div class="col-xs-12">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
