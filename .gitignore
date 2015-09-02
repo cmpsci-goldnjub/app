@@ -62,3 +62,6 @@ bootstrap.py
 
 # Emacs
 *~
+
+# Secret files
+secret_settings.py
