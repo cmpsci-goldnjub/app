@@ -7,5 +7,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^teams/', include("project.teams.urls")),
+    url(r'^', include("project.teams.urls")),
+    url(r'^', include("project.profiles.urls")),
 ]
