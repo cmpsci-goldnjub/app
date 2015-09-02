@@ -1,0 +1,102 @@
+body {
+    padding-top: 62px;
+    padding-bottom: 30px;
+    font-size: 16px;
+    text-align: justify;
+}
+
+.section {
+    padding: 30px 0 30px 0;
+
+    hr {
+        margin:30px 0 30px 0;
+    }
+
+    .col-xs-6 {
+        margin-bottom: 30px;
+    }
+}
+
+.section.header {
+    @media screen and (max-width: 768px) {
+        padding: 75px 0 75px 0;
+    }
+}
+
+.section.green {
+    color: white;
+    background-color: rgb(0, 121, 66);
+
+    hr {
+        border-top: 1px solid rgba(169, 166, 161, 0.39);
+    }
+}
+
+img.brand {
+    width: 100%;
+}
+
+.navbar-brand {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 10px;
+    img {
+        height: 100%;
+    }
+}
+
+.lhc {
+    font-size: 2.8em;
+    line-height: 1em;
+    font-weight: bold;
+    text-align: center;
+
+    @media screen and (max-width: 500px) {
+        font-size: 2em;
+    }
+
+    @media screen and (max-width: 400px) {
+        font-size: 1.5em;
+    }
+}
+
+#examples {
+    a {
+        color: inherit;
+    }
+
+    a:hover {
+        color: #93c54b;
+        text-decoration: none;
+    }
+
+    .name {
+        margin: 0;
+        padding-top: 0.5em;
+        font-size: 1.2em;
+        font-weight: bold;
+
+        @media screen and (max-width: 768px) {
+            font-size: 2em;
+        }
+    }
+}
+
+.prizes {
+    text-align: center;
+    font-weight: bold;
+
+    .winner {
+        font-size: 2em;
+        @media screen and (max-width: 600px) {
+            font-size: 1.5em;
+        }
+    }
+
+    .amount {
+        font-size: 3em;
+        @media screen and (max-width: 600px) {
+            font-size: 2em;
+        }
+    }
+}
