@@ -220,7 +220,7 @@ MIDDLEWARE_CLASSES = (
 #
 ##########################################################################
 
-ROOT_URLCONF = 'project.urls'
+ROOT_URLCONF = 'project.project.urls'
 
 
 ##########################################################################
@@ -230,6 +230,9 @@ ROOT_URLCONF = 'project.urls'
 ##########################################################################
 
 INSTALLED_APPS = (
+    # Django Content types *must* be first.
+    'django.contrib.contenttypes',
+
     # AllAuth
     'allauth',
     'allauth.account',
@@ -245,7 +248,6 @@ INSTALLED_APPS = (
     # Django
     'django.contrib.admin',
     'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -257,6 +259,9 @@ INSTALLED_APPS = (
     # Rest Framework
     'rest_framework',
 
-    'raven.contrib.django.raven_compat',  # Sentry client
+    # Sentry client
+    'raven.contrib.django.raven_compat',
+
+    # Django Extensions
     'django_extensions',
 )
