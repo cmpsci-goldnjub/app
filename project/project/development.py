@@ -15,7 +15,6 @@ from project.project.defaults import *
 SITE_ID = 1
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ["localhost:8000"]
 
@@ -32,6 +31,17 @@ DATABASES = {
         'NAME': os.path.join(VAR_DIR, "db", "project.db"),
     }
 }
+
+##########################################################################
+#
+# Templates
+#
+##########################################################################
+
+# Debug templates
+for t in TEMPLATES:
+    t["OPTIONS"]["debug"] = True
+
 
 ##########################################################################
 #
