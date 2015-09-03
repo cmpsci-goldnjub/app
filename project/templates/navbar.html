@@ -37,6 +37,19 @@
           </a>
           <ul class="dropdown-menu">
             <li><a href="#"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ user.username }}</a></li>
+            {% if user.team_set.all.exists %}
+            <li>
+              {% with team=user.team_set.first request_count=team.request_set.all.count %}
+              <a href="{{ team.get_absolute_url }}">
+                {% if request_count %}
+                <i class="fa fa-envelope text-success"></i>&nbsp;&nbsp;{{ request_count }} Pending Request{{ request_count | pluralize }}
+                {% else %}
+                <i class="fa fa-envelope"></i>&nbsp;&nbsp;No Pending Requests
+                {% endif %}
+              </a>
+              {% endwith %}
+            </li>
+            {% endif %}
             <li role="separator" class="divider"></li>
             <li><a href="{% url 'socialaccount_connections' %}">
                 <i class="fa fa-google"></i>&nbsp;&nbsp;My Google Accounts</a>
@@ -48,7 +61,7 @@
         </li>
         {% else %}
         <li>
-          <a href="{% url 'account_login' %}" role="button">
+          <a href="{% url 'team_list' %}" role="button">
             My H4H
           </a>
         </li>
