@@ -1,0 +1,32 @@
+{% extends "default.html" %}
+{% load crispy_forms_tags %}
+
+{% block default_content %}
+<div class="jumbotron">
+  <h1>Request to Join {{ team.name }}</h1>
+
+  <p>
+    {{ team_request.user.username }} wants to join {{ team.name }}! What do
+    you want to do?
+  </p>
+
+  <form method="post" style="display: inline;">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="accept">
+    <button class="btn btn-success" type="submit" value="accept">
+      <i class="fa fa-check"></i>&nbsp;&nbsp;Accept
+    </button>
+  </form>
+  <form method="post" style="display: inline;">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="reject">
+    <button class="btn btn-danger" type="submit" value="reject">
+      <i class="fa fa-close"></i>&nbsp;&nbsp;Reject
+    </button>
+  </form>
+  <a href="{{ team_request.team.get_absolute_url }}" class="btn btn-primary">
+    Cancel
+  </a>
+</div>
+
+{% endblock %}

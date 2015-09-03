@@ -1,14 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
 
-from .models import Team
-from .forms import TeamLeaveForm
+from .models import Team, Request
+from .forms import ConfirmationForm
 
 
 class TeamListView(ListView):
@@ -42,6 +42,7 @@ class TeamCreateView(CreateView):
         team = form.save()
         team.members.add(self.request.user)
         messages.success(self.request, "Team created!")
+        self.request.user.request_set.delete()
         return super(TeamCreateView, self).form_valid(form)
 
 
@@ -56,7 +57,7 @@ class TeamUpdateView(UpdateView):
 
 class TeamLeaveView(FormView):
     template_name = "teams/team_leave.html"
-    form_class = TeamLeaveForm
+    form_class = ConfirmationForm
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.team_set.all().exists():
@@ -82,8 +83,76 @@ class TeamLeaveView(FormView):
         return super(TeamLeaveView, self).form_valid(form)
 
 
+class RequestSendView(FormView):
+    template_name = "teams/request_send.html"
+    form_class = ConfirmationForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.team = get_object_or_404(Team, slug=kwargs['slug'])
+        if self.team.request_set.filter(user=request.user).exists():
+            msg = "You already have a pending request for {}".format(self.team.name)
+            messages.info(request, msg)
+            return redirect('team_list')
+        if request.user.team_set.all().exists():
+            msg = "You must leave your current team before requesting to join a new one."
+            messages.warning(request, msg)
+            return redirect('team_list')
+        return super(RequestSendView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(RequestSendView, self).get_context_data(**kwargs)
+        context['team'] = self.team
+        return context
+
+    def form_valid(self, form):
+        Request.objects.create(team=self.team, user=self.request.user)
+        messages.success(self.request, "Request sent!")
+        return super(RequestSendView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("team_list")
+
+
+class RequestResponseView(FormView):
+    template_name = "teams/request_response.html"
+    form_class = ConfirmationForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.team_request = get_object_or_404(Request, pk=kwargs['pk'])
+        self.team = self.team_request.team
+        if not self.team.members.filter(pk=request.user.pk).exists():
+            msg = "You cannot respond to that request".format(self.team.name)
+            messages.info(request, msg)
+            return redirect('team_list')
+        return super(RequestResponseView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(RequestResponseView, self).get_context_data(**kwargs)
+        context['team_request'] = self.team_request
+        context['team'] = self.team
+        return context
+
+    def form_valid(self, form):
+        if form.data['action'] == "accept":
+            user = self.team_request.user
+            user.team_set.clear()
+            user.request_set.all().delete()
+            self.team.members.add(user)
+            self.team_request.delete()
+        elif form.data['action'] == "reject":
+
+            self.team_request.delete()
+        return super(RequestResponseView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse("team_list")
+
+
 team_list_view = login_required(TeamListView.as_view())
 team_detail_view = login_required(TeamDetailView.as_view())
 team_create_view = login_required(TeamCreateView.as_view())
 team_update_view = login_required(TeamUpdateView.as_view())
 team_leave_view = login_required(TeamLeaveView.as_view())
+
+request_send_view = login_required(RequestSendView.as_view())
+request_response_view = login_required(RequestResponseView.as_view())

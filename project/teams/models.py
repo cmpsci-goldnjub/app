@@ -54,8 +54,8 @@ class Request(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        kwds = {'id': self.id}
-        return ('request_detail', (), kwds)
+        kwds = {'pk': self.pk}
+        return ('request_response', (), kwds)
 
     def __str__(self):
         return "Request for {} to join {}".format(self.user.username,

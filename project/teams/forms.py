@@ -1,5 +1,5 @@
 from django import forms
 
 
-class TeamLeaveForm(forms.Form):
+class ConfirmationForm(forms.Form):
     pass
