@@ -31,8 +31,8 @@
     {% for team in object_list %}
     <tr>
       <th scope="row">
-        {% if user_team.pk == team.pk %}<i class="fa fa-star"></i>{% endif %}
         <a href="{{ team.get_absolute_url }}">{{ team.name }}</a>
+        {% if user_team.pk == team.pk %}<i class="fa fa-star text-muted"></i>{% endif %}
       </th>
       <td>{{ team.members.count }}</td>
       <td>
