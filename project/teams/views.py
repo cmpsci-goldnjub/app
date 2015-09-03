@@ -46,6 +46,7 @@ class TeamCreateView(CreateView):
         return super(TeamCreateView, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
+        self.request.user.team_set.clear()
         team = form.save()
         team.members.add(self.request.user)
         messages.success(self.request, "Team created!")
