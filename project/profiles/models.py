@@ -10,8 +10,21 @@ import bleach
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, related_name="profile")
+    CS_STUDENT = 'css'
+    STUDENT = 'stu'
+    STAFF_FACULTY = 'fac'
+    ALUMNI = 'alm'
+    STATUS_CHOICES = (
+        (CS_STUDENT, 'Missouri S&T Computer Science Student'),
+        (STUDENT, 'Missouri S&T Student'),
+        (STAFF_FACULTY, 'Missouri S&T Staff or Faculty'),
+        (ALUMNI, 'Missour S&T Alumnus/Alumna'),
+    )
 
+    user = models.OneToOneField(User, related_name="profile")
+    status = models.CharField(max_length=2,
+                              choices=STATUS_CHOICES,
+                              default=STUDENT)
     about_me = models.TextField(validators=[MaxLengthValidator(500)])
     rendered_about_me = models.TextField(editable=False)
 
