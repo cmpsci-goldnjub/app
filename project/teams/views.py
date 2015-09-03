@@ -22,7 +22,7 @@ class TeamDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(TeamDetailView, self).get_context_data(**kwargs)
-        context['teams'] = Team.objects.all()
+        context['on_team'] = self.request.user.team_set.filter(pk=self.object.pk).exists()
         return context
 
 
