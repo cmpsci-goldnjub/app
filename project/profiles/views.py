@@ -40,7 +40,7 @@ class ProfileUpdateView(FormView):
     def form_valid(self, form):
         user = self.request.user
         user.first_name = form.cleaned_data["first_name"]
-        user.last_name = form.cleaned_data["first_name"]
+        user.last_name = form.cleaned_data["last_name"]
         user.profile.status = form.cleaned_data["status"]
         user.profile.about_me = form.cleaned_data["about_me"]
         user.profile.save()
