@@ -3,9 +3,17 @@
 {% block default_content %}
 <div class="jumbotron">
   <div class="pull-right">
-    <a class="btn btn-primary" href="{% url 'team_list' %}">
-      <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Back to teams
-    </a>
+    <p>
+      <a class="btn btn-primary" href="{% url 'team_list' %}">
+        <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Back to teams
+      </a>
+    </p>
+    <p>
+      <a class="btn btn-success {% if user.team_set.all.exists %}disabled{% endif %}"
+         href="{% url 'request_send' slug=team.slug %}">
+        Request to join
+      </a>
+    </p>
   </div>
   <h1>{{ team.name }}</h1>
 </div>
