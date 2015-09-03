@@ -36,7 +36,8 @@
             My H4H
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ user.username }}</a></li>
+            <li><a href="{{ user.profile.get_absolute_url }}"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ user.username }}</a></li>
+            <li><a href="{% url 'profile_update' %}"><i class="fa fa-pencil"></i>&nbsp;&nbsp;Update Profile</a></li>
             <li role="separator" class="divider"></li>
             {% if user.team_set.all.exists %}
             {% with users_team=user.team_set.first %}
