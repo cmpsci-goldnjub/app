@@ -58,10 +58,14 @@
     <div class="panel panel-default">
       <div class="panel-heading">Team Requests</div>
       <div class="panel-body">
-        <ul class="list-unstyled">
+        <ul class="list-group">
           {% for req in team.request_set.all %}
-          <li>
-            <a href="{{ req.get_absolute_url }}">{{ req.user.username }}</a>
+          <li class="list-group-item">
+            {{ req.user.username }}
+            <div class="btn-group pull-right" role="group" aria-label="...">
+              <a class="btn btn-info btn-xs" href="{{ req.user.profile.get_absolute_url }}">&nbsp;<i class="fa fa-user"></i>&nbsp;</a>
+              <a class="btn btn-success btn-xs" href="{{ req.get_absolute_url }}">&nbsp;<i class="fa fa-envelope"></i>&nbsp;</a>
+            </div>
           </li>
           {% empty %}
           <li>No requests to join</li>
