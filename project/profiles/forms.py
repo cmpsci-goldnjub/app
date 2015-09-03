@@ -18,7 +18,7 @@ class SignupForm(BaseProfileForm):
 
     def signup(self, request, user):
         user.first_name = self.cleaned_data["first_name"]
-        user.last_name = self.cleaned_data["first_name"]
+        user.last_name = self.cleaned_data["last_name"]
         user.profile.status = self.cleaned_data["status"]
         user.profile.about_me = self.cleaned_data["about_me"]
         user.profile.save()
