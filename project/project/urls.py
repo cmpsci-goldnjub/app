@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin_tools/', include('admin_tools.urls')),
 
-    url(r'^accounts/login/$', RedirectView.as_view(url=settings.LOGIN_URL),
+    url(r'^accounts/login/$', RedirectView.as_view(url=settings.LOGIN_URL, permanent=False),
         name='account_login'),
     url(r'^accounts/logout/$', 'allauth.account.views.logout', name='account_logout'),
     url(r'^accounts/social/', include('allauth.socialaccount.urls')),
