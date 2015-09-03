@@ -31,10 +31,16 @@
     {% for team in object_list %}
     <tr>
       <th scope="row">
+        {% if user_team.pk == team.pk %}<i class="fa fa-star"></i>{% endif %}
         <a href="{{ team.get_absolute_url }}">{{ team.name }}</a>
       </th>
       <td>{{ team.members.count }}</td>
-      <td>TODO</td>
+      <td>
+        <a class="btn btn-success btn-sm {% if user.team_set.all.exists %}disabled{% endif %}"
+           href="{% url 'request_send' slug=team.slug %}">
+          Request to join
+        </a>
+      </td>
     </tr>
     {% endfor %}
   </tbody>

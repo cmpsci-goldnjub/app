@@ -15,6 +15,13 @@ class TeamListView(ListView):
     template_name = "teams/team_list.html"
     model = Team
 
+    def get_context_data(self, **kwargs):
+        context = super(TeamListView, self).get_context_data(**kwargs)
+        context['user_team'] = None
+        if self.request.user.team_set.all().exists():
+            context['user_team'] = self.request.user.team_set.first()
+        return context
+
 
 class TeamDetailView(DetailView):
     template_name = "teams/team_detail.html"
