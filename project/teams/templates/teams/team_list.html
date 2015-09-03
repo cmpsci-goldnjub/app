@@ -1,1 +1,38 @@
-{% extends "base.html" %}
+{% extends "default.html" %}
+
+{% block default_content %}
+<div class="jumbotron">
+  <h1 style="display:inline;">Teams</h1>
+  <div class="pull-right">
+    <p><i class="fa fa-users fa-5x text-muted"></i></p>
+  </div>
+  <p>
+    Join a project, or create your own!
+  </p>
+  <a class="btn btn-success" href="{% url 'team_create' %}">
+    <i class="fa fa-plus"></i>&nbsp;&nbsp;Create Team
+  </a>
+</div>
+
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Members</th>
+      <th>Request to Join</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for team in object_list %}
+    <tr>
+      <th scope="row">{{ team.name }}</th>
+      <td>{{ team.members.count }}</td>
+      <td>TODO</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
