@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
 from .models import Profile
+from .forms import ProfileForm
 
 
 class ProfileListView(ListView):
@@ -20,10 +21,34 @@ class ProfileDetailView(DetailView):
         return get_object_or_404(Profile, user__username=self.kwargs['username'])
 
 
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(FormView):
     template_name = "profiles/profile_update.html"
-    model = Profile
-    fields = ['name', 'about_me']
+    form_class = ProfileForm
+
+    def get_initial(self):
+        user = self.request.user
+        return {'first_name': user.first_name,
+                'last_name': user.last_name,
+                'status': user.profile.status,
+                'about_me': user.profile.about_me}
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileUpdateView, self).get_context_data(**kwargs)
+        context['profile'] = self.request.user.profile
+        return context
+
+    def form_valid(self, form):
+        user = self.request.user
+        user.first_name = form.cleaned_data["first_name"]
+        user.last_name = form.cleaned_data["first_name"]
+        user.profile.status = form.cleaned_data["status"]
+        user.profile.about_me = form.cleaned_data["about_me"]
+        user.profile.save()
+        user.save()
+        return super(ProfileUpdateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return self.request.user.profile.get_absolute_url()
 
 
 profile_list_view = login_required(ProfileListView.as_view())
