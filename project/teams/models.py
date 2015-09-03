@@ -38,6 +38,31 @@ class Team(models.Model):
         return ('team_detail', (), kwds)
 
 
+class Request(models.Model):
+    INVITE = 'i'
+    REQUEST = 'r'
+    DIRECTION_CHOICES = (
+        (INVITE, "Invitation"),
+        (REQUEST, "Request"),
+    )
+
+    class Meta:
+        ordering = ['created']
+        get_latest_by = "created"
+
+    team = models.ForeignKey(Team)
+    user = models.ForeignKey(User)
+    direction = models.CharField(max_length=1,
+                                 choices=DIRECTION_CHOICES)
+
+    created = models.DateTimeField(auto_now_add=True)
+
+    @models.permalink
+    def get_absolute_url(self):
+        kwds = {'id': self.id}
+        return ('request_detail', (), kwds)
+
+
 @receiver(pre_save, sender=Team)
 def team_pre_save(sender, instance, **kwargs):
     """Called before a Team is saved
