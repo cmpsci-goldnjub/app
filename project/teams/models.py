@@ -42,12 +42,6 @@ class Team(models.Model):
 
 
 class Request(models.Model):
-    INVITE = 'i'
-    REQUEST = 'r'
-    DIRECTION_CHOICES = (
-        (INVITE, "Invitation"),
-        (REQUEST, "Request"),
-    )
 
     class Meta:
         ordering = ['created']
@@ -55,8 +49,6 @@ class Request(models.Model):
 
     team = models.ForeignKey(Team)
     user = models.ForeignKey(User)
-    direction = models.CharField(max_length=1,
-                                 choices=DIRECTION_CHOICES)
 
     created = models.DateTimeField(auto_now_add=True)
 
@@ -66,9 +58,8 @@ class Request(models.Model):
         return ('request_detail', (), kwds)
 
     def __str__(self):
-        return "{} for {} to join {}".format(self.get_direction_display(),
-                                             self.user.username,
-                                             self.team.name)
+        return "Request for {} to join {}".format(self.user.username,
+                                                  self.team.name)
 
 @receiver(pre_save, sender=Team)
 def team_pre_save(sender, instance, **kwargs):
