@@ -16,6 +16,13 @@
     </p>
   </div>
   <h1>{{ team.name }}</h1>
+
+  {% if on_team %}
+  <a class="btn btn-danger {% if not user.team_set.all.exists %}disabled{% endif %}"
+     href="{% url 'team_leave' %}">
+    <i class="fa fa-close"></i>&nbsp;&nbsp;Leave Team
+  </a>
+  {% endif %}
 </div>
 
 <div class="row">
