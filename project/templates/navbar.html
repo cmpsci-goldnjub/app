@@ -39,14 +39,16 @@
             <li><a href="#"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ user.username }}</a></li>
             {% if user.team_set.all.exists %}
             <li>
-              {% with team=user.team_set.first request_count=team.request_set.all.count %}
-              <a href="{{ team.get_absolute_url }}">
+              {% with users_team=user.team_set.first %}
+              {% with request_count=users_team.request_set.all.count %}
+              <a href="{{ users_team.get_absolute_url }}">
                 {% if request_count %}
                 <i class="fa fa-envelope text-success"></i>&nbsp;&nbsp;{{ request_count }} Pending Request{{ request_count | pluralize }}
                 {% else %}
                 <i class="fa fa-envelope"></i>&nbsp;&nbsp;No Pending Requests
                 {% endif %}
               </a>
+              {% endwith %}
               {% endwith %}
             </li>
             {% endif %}
