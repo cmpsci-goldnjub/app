@@ -22,7 +22,7 @@ class Profile(models.Model):
     )
 
     user = models.OneToOneField(User, related_name="profile")
-    status = models.CharField(max_length=2,
+    status = models.CharField(max_length=3,
                               choices=STATUS_CHOICES,
                               default=STUDENT)
     about_me = models.TextField(validators=[MaxLengthValidator(500)])
