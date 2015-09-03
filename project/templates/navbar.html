@@ -33,17 +33,25 @@
         {% if user.is_authenticated %}
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-user"></i>&nbsp;&nbsp;My H4H
+            My H4H
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Thing</a></li>
+            <li><a href="#"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ user.username }}</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="{% url 'socialaccount_connections' %}">My Connections</a></li>
-            <li><a href="{% url 'account_logout' %}">Logout</a></li>
+            <li><a href="{% url 'socialaccount_connections' %}">
+                <i class="fa fa-google"></i>&nbsp;&nbsp;My Google Accounts</a>
+            </li>
+            <li><a href="{% url 'account_logout' %}">
+                <i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a>
+            </li>
           </ul>
         </li>
         {% else %}
-        <li><a href="#">Link</a></li>
+        <li>
+          <a href="{% url 'account_login' %}" role="button">
+            My H4H
+          </a>
+        </li>
         {% endif %}
       </ul>
     </div><!--/.nav-collapse -->
