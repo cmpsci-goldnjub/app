@@ -28,6 +28,13 @@
               <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Back to profiles
             </a>
           </li>
+          {% if profile.user.pk == user.pk %}
+          <li>
+            <a class="" href="{% url 'profile_update' %}">
+              <i class="fa fa-pencil"></i>&nbsp;&nbsp;Edit Profile
+            </a>
+          </li>
+          {% endif %}
         </ul>
       </div>
     </div>
