@@ -21,6 +21,8 @@ class SignupForm(BaseProfileForm):
         user.last_name = self.cleaned_data["first_name"]
         user.profile.status = self.cleaned_data["status"]
         user.profile.about_me = self.cleaned_data["about_me"]
+        user.profile.save()
+        user.save()
 
 
 class ProfileForm(BaseProfileForm):
