@@ -9,9 +9,13 @@
   <p>
     Join a project, or create your own!
   </p>
-  <a class="btn btn-success {% if user.team_set.all.count %}disabled{% endif %}"
+  <a class="btn btn-success {% if user.team_set.all.exists %}disabled{% endif %}"
      href="{% url 'team_create' %}">
     <i class="fa fa-plus"></i>&nbsp;&nbsp;Create Team
+  </a>
+  <a class="btn btn-danger {% if not user.team_set.all.exists %}disabled{% endif %}"
+     href="{% url 'team_leave' %}">
+    <i class="fa fa-close"></i>&nbsp;&nbsp;Leave Team
   </a>
 </div>
 

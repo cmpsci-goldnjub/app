@@ -1,0 +1,23 @@
+{% extends "default.html" %}
+{% load crispy_forms_tags %}
+
+{% block default_content %}
+<div class="jumbotron">
+  <h1 style="display:inline;">Leave Your Team</h1>
+  <p>Sorry to see you go!</p>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <button class="btn btn-danger" type="submit">
+      <i class="fa fa-close"></i>&nbsp;&nbsp;Leave Team
+    </button>
+    <a href="{% url 'team_list' %}" class="btn btn-primary">
+      Cancel
+    </a>
+    </button>
+  </form>
+</div>
+
+
+{% endblock %}
