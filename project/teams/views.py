@@ -59,8 +59,15 @@ class TeamUpdateView(UpdateView):
     model = Team
     fields = ['name', 'description']
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.team_set.all().exists():
+            msg = "You must be on a team to update one."
+            messages.warning(request, msg)
+            return redirect('team_list')
+        return super(TeamUpdateView, self).dispatch(request, *args, **kwargs)
+
     def get_object(self, queryset=None):
-        print self.request.user
+        return self.request.user.team_set.first()
 
 
 class TeamLeaveView(FormView):
