@@ -6,6 +6,7 @@ PROJECT_DIR = os.path.dirname(SETTINGS_DIR)
 BUILDOUT_DIR = os.path.dirname(PROJECT_DIR)
 VAR_DIR = os.path.join(BUILDOUT_DIR, "var")
 
+
 ##########################################################################
 #
 # Secret settings
@@ -36,6 +37,8 @@ LOGIN_REDIRECT_URL = '/'
 
 # The address to redirect to when a user must authenticate
 LOGIN_URL = '/accounts/google/login/?process=login'
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'project.profiles.forms.SignupForm'
 
 # Require that users who are signing up provide an email address
 ACCOUNT_EMAIL_REQUIRED = True
