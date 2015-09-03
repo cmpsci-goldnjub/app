@@ -1,0 +1,39 @@
+{% extends "default.html" %}
+
+{% block default_content %}
+<div class="jumbotron">
+  {% if not profile.user.team_set.all.exists %}
+  <div class="pull-right">
+    <p>
+      <span class="label label-success">
+        Needs a team!&nbsp;&nbsp;<i class="fa fa-lightbulb-o"></i>
+      </span>
+    </p>
+  </div>
+  {% endif %}
+  <h1>
+    {{ profile.user.get_full_name | default:profile.user.username }}
+    <small>{{ profile.user.username }}</small>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-3">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+          <li>
+            <a class="" href="{% url 'profile_list' %}">
+              <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Back to profiles
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="team-description col-xs-12 {% if on_team %}col-sm-6{% else %}col-sm-9{% endif %}">
+    {{ profile.rendered_about_me | safe }}
+  </div>
+</div>
+{% endblock %}

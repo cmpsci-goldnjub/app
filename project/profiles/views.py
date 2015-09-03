@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 from django.views.generic.edit import UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -14,6 +15,9 @@ class ProfileListView(ListView):
 class ProfileDetailView(DetailView):
     template_name = "profiles/profile_detail.html"
     model = Profile
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Profile, user__username=self.kwargs['username'])
 
 
 class ProfileUpdateView(UpdateView):
