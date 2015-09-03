@@ -7,7 +7,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
 
-from .models import Team, Request
+from .models import Team, Request, TeamFullException
 from .forms import ConfirmationForm
 
 
@@ -48,7 +48,7 @@ class TeamCreateView(CreateView):
     def form_valid(self, form):
         self.request.user.team_set.clear()
         team = form.save()
-        team.members.add(self.request.user)
+        team.add_member(self.request.user)
         messages.success(self.request, "Team created!")
         self.request.user.request_set.all().delete()
         return super(TeamCreateView, self).form_valid(form)
@@ -149,13 +149,16 @@ class RequestResponseView(FormView):
 
     def form_valid(self, form):
         if form.data['action'] == "accept":
-            user = self.team_request.user
-            user.team_set.clear()
-            user.request_set.all().delete()
-            self.team.members.add(user)
-            self.team_request.delete()
+            try:
+                user = self.team_request.user
+                user.team_set.clear()
+                user.request_set.all().delete()
+                self.team.add_member(user)
+                self.team_request.delete()
+            except TeamFullException:
+                msg = "{} is already full.".format(self.team.name)
+                messages.error(self.request, msg)
         elif form.data['action'] == "reject":
-
             self.team_request.delete()
         return super(RequestResponseView, self).form_valid(form)
 

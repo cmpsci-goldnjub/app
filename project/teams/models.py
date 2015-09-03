@@ -9,10 +9,16 @@ from django.template.defaultfilters import slugify
 import bleach
 import markdown
 
+
 name_validator = RegexValidator(
     regex=r"[\w\-.:\s]+",
     message="Names can contain letters, numbers, dashes, periods, colons, and whitespace."
 )
+
+
+class TeamFullException(Exception):
+    pass
+
 
 class Team(models.Model):
 
@@ -39,6 +45,14 @@ class Team(models.Model):
 
     def __str__(self):
         return self.name
+
+    def is_full(self):
+        return self.members.count() >= 5
+
+    def add_member(self, user):
+        if not self.is_full():
+            return self.members.add(user)
+        raise TeamFullException()
 
 
 class Request(models.Model):
