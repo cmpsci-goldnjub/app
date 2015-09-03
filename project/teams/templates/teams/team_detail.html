@@ -1,0 +1,29 @@
+{% extends "default.html" %}
+
+{% block default_content %}
+<div class="row">
+  <div class="hidden-xs hidden-sm col-md-2 well well-sm">
+    <h2><i class="fa fa-users text-muted"></i>&nbsp;&nbsp;Teams</h2>
+    <ul class="nav nav-pills nav-stacked">
+      {% for t in teams %}
+      <li class="{% if t.slug == team.slug %} active {% endif %}">
+        <a href="{{ t.get_absolute_url }}">{{ t.name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="col-xs-12 col-md-10">
+    <div class="jumbotron">
+      <h1>{{ team.name }}</h1>
+      <ul class="list-unstyled">
+        {% for member in team.members.all %}
+        <li>{{ member.username }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    {{ team.rendered_description | safe }}
+  </div>
+</div>
+{% endblock %}

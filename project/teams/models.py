@@ -37,6 +37,9 @@ class Team(models.Model):
         kwds = {'slug': self.slug}
         return ('team_detail', (), kwds)
 
+    def __str__(self):
+        return self.name
+
 
 class Request(models.Model):
     INVITE = 'i'
@@ -62,6 +65,10 @@ class Request(models.Model):
         kwds = {'id': self.id}
         return ('request_detail', (), kwds)
 
+    def __str__(self):
+        return "{} for {} to join {}".format(self.get_direction_display(),
+                                             self.user.username,
+                                             self.team.name)
 
 @receiver(pre_save, sender=Team)
 def team_pre_save(sender, instance, **kwargs):

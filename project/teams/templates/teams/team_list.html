@@ -9,12 +9,11 @@
   <p>
     Join a project, or create your own!
   </p>
-  <a class="btn btn-success" href="{% url 'team_create' %}">
+  <a class="btn btn-success {% if user.team_set.all.count %}disabled{% endif %}"
+     href="{% url 'team_create' %}">
     <i class="fa fa-plus"></i>&nbsp;&nbsp;Create Team
   </a>
 </div>
-
-
 
 <table class="table">
   <thead>
@@ -27,7 +26,9 @@
   <tbody>
     {% for team in object_list %}
     <tr>
-      <th scope="row">{{ team.name }}</th>
+      <th scope="row">
+        <a href="{{ team.get_absolute_url }}">{{ team.name }}</a>
+      </th>
       <td>{{ team.members.count }}</td>
       <td>TODO</td>
     </tr>
