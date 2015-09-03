@@ -6,8 +6,10 @@
   <h1>Request to Join {{ team.name }}</h1>
 
   <p>
-    {{ team_request.user.username }} wants to join {{ team.name }}! What do
-    you want to do?
+    <a href="{{ team_request.user.profile.get_absolute_url }}">
+      {{ team_request.user.username }}
+    </a>
+    wants to join {{ team.name }}!  What do you want to do?
   </p>
 
   <form method="post" style="display: inline;">
