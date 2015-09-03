@@ -5,6 +5,16 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
+      {% for message in messages %}
+      <div{% if message.tags %} class="alert {{ message.tags }} alert-dismissable"{% endif %}>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
       {% block default_content %} {% endblock %}
     </div>
   </div>
