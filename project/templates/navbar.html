@@ -37,10 +37,16 @@
           </a>
           <ul class="dropdown-menu">
             <li><a href="#"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ user.username }}</a></li>
+            <li role="separator" class="divider"></li>
             {% if user.team_set.all.exists %}
+            {% with users_team=user.team_set.first %}
+            {% with request_count=users_team.request_set.all.count %}
             <li>
-              {% with users_team=user.team_set.first %}
-              {% with request_count=users_team.request_set.all.count %}
+              <a href="{{ users_team.get_absolute_url }}">
+                <i class="fa fa-users"></i>&nbsp;&nbsp;My Team
+              </a>
+            </li>
+            <li>
               <a href="{{ users_team.get_absolute_url }}">
                 {% if request_count %}
                 <i class="fa fa-envelope text-success"></i>&nbsp;&nbsp;{{ request_count }} Pending Request{{ request_count | pluralize }}
@@ -48,9 +54,9 @@
                 <i class="fa fa-envelope"></i>&nbsp;&nbsp;No Pending Requests
                 {% endif %}
               </a>
-              {% endwith %}
-              {% endwith %}
             </li>
+            {% endwith %}
+            {% endwith %}
             {% endif %}
             <li role="separator" class="divider"></li>
             <li><a href="{% url 'socialaccount_connections' %}">
