@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
             name='Profile',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('status', models.CharField(default=b'stu', max_length=2, choices=[(b'css', b'Missouri S&T Computer Science Student'), (b'stu', b'Missouri S&T Student'), (b'fac', b'Missouri S&T Staff or Faculty'), (b'alm', b'Missour S&T Alumnus/Alumna')])),
                 ('about_me', models.TextField(validators=[django.core.validators.MaxLengthValidator(500)])),
                 ('rendered_about_me', models.TextField(editable=False)),
                 ('user', models.OneToOneField(related_name='profile', to=settings.AUTH_USER_MODEL)),

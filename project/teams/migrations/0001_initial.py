@@ -14,6 +14,17 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Request',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True)),
+            ],
+            options={
+                'ordering': ['created'],
+                'get_latest_by': 'created',
+            },
+        ),
+        migrations.CreateModel(
             name='Team',
             fields=[
                 ('slug', models.SlugField(serialize=False, primary_key=True)),
@@ -27,5 +38,15 @@ class Migration(migrations.Migration):
                 'ordering': ['name'],
                 'get_latest_by': 'created',
             },
+        ),
+        migrations.AddField(
+            model_name='request',
+            name='team',
+            field=models.ForeignKey(to='teams.Team'),
+        ),
+        migrations.AddField(
+            model_name='request',
+            name='user',
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
         ),
     ]
