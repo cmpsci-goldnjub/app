@@ -7,17 +7,17 @@ from .models import Profile
 
 
 class ProfileListView(ListView):
-    template_name = "teams/team_list.html"
+    template_name = "profiles/profile_list.html"
     model = Profile
 
 
 class ProfileDetailView(DetailView):
-    template_name = "teams/team_detail.html"
+    template_name = "profiles/profile_detail.html"
     model = Profile
 
 
 class ProfileUpdateView(UpdateView):
-    template_name = "teams/team_update.html"
+    template_name = "profiles/profile_update.html"
     model = Profile
     fields = ['name', 'about_me']
 

@@ -1,0 +1,33 @@
+{% extends "default.html" %}
+
+{% block default_content %}
+<div class="jumbotron">
+  <h1 style="display:inline;">People</h1>
+  <div class="pull-right">
+    <p><i class="fa fa-users fa-3x text-muted"></i></p>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Team</th>
+      <th>S&amp;T Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for profile in object_list %}
+    <tr>
+      <th scope="row">
+        <a href="{{ profile.get_absolute_url }}">{{ profile.user.get_full_name | default:profile.user.username }}</a>
+        {% if profile.user.pk == user.pk %}<i class="fa fa-star text-muted"></i>{% endif %}
+      </th>
+      <td>{{ profile.user.team_set.first.name | default:"<span class='text-muted'>No Team</span>" }}</td>
+      <td>{{ profile.get_status_display }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

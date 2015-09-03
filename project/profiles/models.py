@@ -30,7 +30,7 @@ class Profile(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('view_profile', (), {'username': self.user.username})
+        return ('profile_detail', (), {'username': self.user.username})
 
 
 @receiver(post_save, sender=User)
