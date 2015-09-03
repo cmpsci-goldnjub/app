@@ -49,7 +49,7 @@ class TeamCreateView(CreateView):
         team = form.save()
         team.members.add(self.request.user)
         messages.success(self.request, "Team created!")
-        self.request.user.request_set.delete()
+        self.request.user.request_set.all().delete()
         return super(TeamCreateView, self).form_valid(form)
 
 
