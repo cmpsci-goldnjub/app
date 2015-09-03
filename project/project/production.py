@@ -60,6 +60,10 @@ for t in TEMPLATES:
 #
 ##########################################################################
 
+MIDDLEWARE_CLASSES = (
+    'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
+) + MIDDLEWARE_CLASSES
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
