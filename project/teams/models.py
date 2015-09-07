@@ -81,8 +81,8 @@ class Request(models.Model):
         return ('request_response', (), kwds)
 
     def __str__(self):
-        return "Request for {} to join {}".format(self.user.username,
-                                                  self.team.name)
+        return u"Request for {} to join {}".format(self.user.username,
+                                                   self.team.name)
 
 @receiver(pre_save, sender=Team)
 def team_pre_save(sender, instance, **kwargs):

@@ -105,7 +105,7 @@ class RequestSendView(FormView):
     def dispatch(self, request, *args, **kwargs):
         self.team = get_object_or_404(Team, slug=kwargs['slug'])
         if self.team.request_set.filter(user=request.user).exists():
-            msg = "You already have a pending request for {}".format(self.team.name)
+            msg = "You already have a pending request for that team"
             messages.info(request, msg)
             return redirect('team_list')
         if request.user.team_set.all().exists():
@@ -136,7 +136,7 @@ class RequestResponseView(FormView):
         self.team_request = get_object_or_404(Request, pk=kwargs['pk'])
         self.team = self.team_request.team
         if not self.team.members.filter(pk=request.user.pk).exists():
-            msg = "You cannot respond to that request".format(self.team.name)
+            msg = "You cannot respond to that request"
             messages.info(request, msg)
             return redirect('team_list')
         return super(RequestResponseView, self).dispatch(request, *args, **kwargs)
@@ -156,7 +156,7 @@ class RequestResponseView(FormView):
                 self.team.add_member(user)
                 self.team_request.delete()
             except TeamFullException:
-                msg = "{} is already full.".format(self.team.name)
+                msg = "That team is already full."
                 messages.error(self.request, msg)
         elif form.data['action'] == "reject":
             self.team_request.delete()
