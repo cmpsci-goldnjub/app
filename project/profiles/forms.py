@@ -4,9 +4,9 @@ from .models import Profile
 
 
 class BaseProfileForm(forms.Form):
-    first_name = forms.CharField(label='Your First Name', max_length=100,
+    first_name = forms.CharField(label='Your First Name', max_length=30,
                                  required=False)
-    last_name = forms.CharField(label='Your Last Name', max_length=100,
+    last_name = forms.CharField(label='Your Last Name', max_length=30,
                                 required=False)
     status = forms.ChoiceField(label='Your S&T Status',
                                choices=Profile.STATUS_CHOICES)
