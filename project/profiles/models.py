@@ -32,6 +32,9 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return ('profile_detail', (), {'username': self.user.username})
 
+    def __str__(self):
+        return self.user.username
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
