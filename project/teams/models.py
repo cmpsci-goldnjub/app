@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.signals import pre_save
@@ -8,12 +9,17 @@ from django.template.defaultfilters import slugify
 
 import bleach
 import markdown
-
+import uuid
 
 name_validator = RegexValidator(
-    regex=r"[\w\-.:\s]+",
+    regex=r"[a-zA-Z0-9_\-.:\s]+",
     message="Names can contain letters, numbers, dashes, periods, colons, and whitespace."
 )
+
+
+def slug_validator(value):
+    if not slugify(value):
+        raise ValidationError('Please add some more characters to your team name')
 
 
 class TeamFullException(Exception):
@@ -26,9 +32,10 @@ class Team(models.Model):
         ordering = ['name']
         get_latest_by = "created"
 
-    slug = models.SlugField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    slug = models.SlugField(unique=True, null=False)
 
-    name = models.CharField(max_length=50, validators=[name_validator],
+    name = models.CharField(max_length=50, validators=[name_validator, slug_validator],
                             help_text="Your team's project name!")
     description = models.TextField(blank=True,
                                    help_text="Tell us about your project! Or don't. It's up to you!")

@@ -85,7 +85,7 @@ class TeamLeaveView(FormView):
         return reverse("team_list")
 
     def form_valid(self, form):
-        teams = [t.slug for t in self.request.user.team_set.all()]
+        teams = [t.pk for t in self.request.user.team_set.all()]
         self.request.user.team_set.clear()
 
         for tid in teams:
