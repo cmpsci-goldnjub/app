@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MaxLengthValidator
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -15,6 +15,8 @@ name_validator = RegexValidator(
     regex=r"[a-zA-Z0-9_\-.:\s]+",
     message="Names can contain letters, numbers, dashes, periods, colons, and whitespace."
 )
+
+description_length_validator = MaxLengthValidator(2000)
 
 
 def slug_validator(value):
@@ -37,7 +39,7 @@ class Team(models.Model):
 
     name = models.CharField(max_length=50, validators=[name_validator, slug_validator],
                             help_text="Your team's project name!")
-    description = models.TextField(blank=True,
+    description = models.TextField(blank=True, validators=[description_length_validator],
                                    help_text="Tell us about your project! Or don't. It's up to you!")
     rendered_description = models.TextField(editable=False)
 
