@@ -16,12 +16,20 @@ name_validator = RegexValidator(
     message="Names can contain letters, numbers, dashes, periods, colons, and whitespace."
 )
 
+
 description_length_validator = MaxLengthValidator(2000)
 
 
 def slug_validator(value):
     if not slugify(value):
-        raise ValidationError('Please add some more characters to your team name')
+        raise ValidationError('Please add some more characters to your team name.')
+
+
+def ascii_validator(value):
+    try:
+        value.encode('ascii')
+    except UnicodeEncodeError:
+        raise ValidationError('Team name should contain only ASCII characters.')
 
 
 class TeamFullException(Exception):
@@ -37,7 +45,7 @@ class Team(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     slug = models.SlugField(unique=True, null=False)
 
-    name = models.CharField(max_length=50, validators=[name_validator, slug_validator],
+    name = models.CharField(max_length=50, validators=[name_validator, ascii_validator, slug_validator],
                             help_text="Your team's project name!")
     description = models.TextField(blank=True, validators=[description_length_validator],
                                    help_text="Tell us about your project! Or don't. It's up to you!")
