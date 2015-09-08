@@ -12,7 +12,7 @@ import markdown
 import uuid
 
 name_validator = RegexValidator(
-    regex=r"[a-zA-Z0-9_\-.:\s]+",
+    regex=r"[a-zA-Z0-9_\-.: ]+",
     message="Names can contain letters, numbers, dashes, periods, colons, and whitespace."
 )
 
