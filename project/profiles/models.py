@@ -10,6 +10,10 @@ import bleach
 
 
 class Profile(models.Model):
+
+    class Meta:
+        ordering = ['user__username']
+
     CS_STUDENT = 'css'
     STUDENT = 'stu'
     STAFF_FACULTY = 'fac'
