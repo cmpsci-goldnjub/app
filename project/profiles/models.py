@@ -22,7 +22,7 @@ class Profile(models.Model):
         (CS_STUDENT, 'Missouri S&T Computer Science Student'),
         (STUDENT, 'Missouri S&T Student'),
         (STAFF_FACULTY, 'Missouri S&T Staff or Faculty'),
-        (ALUMNI, 'Missour S&T Alumnus/Alumna'),
+        (ALUMNI, 'Missouri S&T Alumnus/Alumna'),
     )
 
     user = models.OneToOneField(User, related_name="profile")
