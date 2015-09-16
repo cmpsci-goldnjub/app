@@ -5,7 +5,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-
+from django.core.mail import send_mail
 
 from .models import Team, Request, TeamFullException
 from .forms import ConfirmationForm
@@ -112,6 +112,7 @@ class RequestSendView(FormView):
             msg = "You must leave your current team before requesting to join a new one."
             messages.warning(request, msg)
             return redirect('team_list')
+
         return super(RequestSendView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -121,6 +122,17 @@ class RequestSendView(FormView):
 
     def form_valid(self, form):
         Request.objects.create(team=self.team, user=self.request.user)
+
+        # Send email to team
+        team = Team.objects.get(name=self.team)
+
+        for user in team.members.all():
+            if user.email:
+                subject = 'A User Requested to Join Your H4H Team!'
+                message = 'Dear {},\n\n{} has requested to join your Hackathon for Humanity team.  You can respond to their request by visiting your team page at http://h4h.mst.edu/teams/{}'.format(user, self.request.user, team.name)
+
+                send_mail(subject, message, 'roreply@h4h.mst.edu', [user.email], fail_silently=False)
+
         messages.success(self.request, "Request sent!")
         return super(RequestSendView, self).form_valid(form)
 
