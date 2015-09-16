@@ -15,7 +15,7 @@
     {{ profile.user.get_full_name | default:profile.user.username }}
     <small>{{ profile.user.username }}</small>
   </h1>
-  <p>{{ profile.get_status_display }}</p>
+  <p>{{ profile.get_status_display }} {% if profile.show_my_email %} - {{ user.email }} {% endif %}</p>
 </div>
 
 <div class="row">
