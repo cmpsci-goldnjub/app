@@ -30,7 +30,8 @@ class ProfileUpdateView(FormView):
         return {'first_name': user.first_name,
                 'last_name': user.last_name,
                 'status': user.profile.status,
-                'about_me': user.profile.about_me}
+                'about_me': user.profile.about_me,
+                'show_email': user.profile.show_my_email}
 
     def get_context_data(self, **kwargs):
         context = super(ProfileUpdateView, self).get_context_data(**kwargs)
@@ -43,6 +44,7 @@ class ProfileUpdateView(FormView):
         user.last_name = form.cleaned_data["last_name"]
         user.profile.status = form.cleaned_data["status"]
         user.profile.about_me = form.cleaned_data["about_me"]
+        user.profile.show_my_email = form.cleaned_data["show_email"]
         user.profile.save()
         user.save()
         return super(ProfileUpdateView, self).form_valid(form)
