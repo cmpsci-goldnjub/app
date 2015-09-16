@@ -29,6 +29,7 @@ class Profile(models.Model):
     status = models.CharField(max_length=3,
                               choices=STATUS_CHOICES,
                               default=STUDENT)
+    show_my_email = models.BooleanField(default=False)
     about_me = models.TextField(validators=[MaxLengthValidator(500)])
     rendered_about_me = models.TextField(editable=False)
 

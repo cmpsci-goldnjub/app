@@ -12,6 +12,8 @@ class BaseProfileForm(forms.Form):
                                choices=Profile.STATUS_CHOICES)
     about_me = forms.CharField(label='About Me', widget=forms.Textarea,
                                required=False)
+    show_email = forms.BooleanField(label='Show my email address to other H4H users',
+                                    required=False)
 
 
 class SignupForm(BaseProfileForm):
@@ -21,6 +23,7 @@ class SignupForm(BaseProfileForm):
         user.last_name = self.cleaned_data["last_name"]
         user.profile.status = self.cleaned_data["status"]
         user.profile.about_me = self.cleaned_data["about_me"]
+        user.profile.show_my_email = self.cleaned_data["show_email"]
         user.profile.save()
         user.save()
 
