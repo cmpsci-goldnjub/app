@@ -15,7 +15,11 @@ bin/bootstrap.py:
 
 # Destroys existing test database and creates a new one
 db:
-	echo "Unimplemented"
+	rm -f var/db/*.db
+	python bin/django makemigrations
+	python bin/django migrate --no-initial-data
+	python bin/django migrate
+	python bin/django loaddata project/fixtures/initial_data.yaml
 
 clean:
 	find ./ -name *.pyc -delete
