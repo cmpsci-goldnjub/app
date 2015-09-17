@@ -1,7 +1,5 @@
 Dear {{ recipient.username }},
 
-{{ request.user.username }} has requested to join your Hackathon for
-Humanity team.  You can see your pending requests by visiting your
-team page at http://h4h.mst.edu{{ request.team.get_absolute_url }}.
+{{ request.user.username }} has requested to join your Hackathon for Humanity team.  You can see your pending requests by visiting your team page at http://h4h.mst.edu{{ request.team.get_absolute_url }}.
 
 - The H4H Team
