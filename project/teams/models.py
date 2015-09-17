@@ -21,8 +21,11 @@ description_length_validator = MaxLengthValidator(2000)
 
 
 def slug_validator(value):
+    slug = slugify(value)
     if not slugify(value):
         raise ValidationError('Please add some more characters to your team name.')
+    if Team.objects.filter(slug=slug).exists():
+        raise ValidationError('A team with a similar name exists.')
 
 
 def ascii_validator(value):
