@@ -144,12 +144,6 @@ MESSAGE_TAGS = {
 # Should be overridden by development.py or production.py
 DATABASES = None
 
-# Add project/fixtures to the list of places where django looks for
-# fixtures to install.
-FIXTURE_DIRS = (
-    os.path.join(PROJECT_DIR, "fixtures"),
-)
-
 
 ##########################################################################
 #
