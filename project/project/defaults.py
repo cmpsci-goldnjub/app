@@ -292,6 +292,7 @@ INSTALLED_APPS = (
     # H4H apps
     'project.teams',
     'project.profiles',
+    'project.submission',
 
     # Sentry client
     'raven.contrib.django.raven_compat',
