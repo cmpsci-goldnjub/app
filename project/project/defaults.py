@@ -64,6 +64,24 @@ ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda u: "/profile/%s/" % u.username,
 }
 
+
+##########################################################################
+#
+# Email Settings
+#
+##########################################################################
+
+# These should be added to secret_settings.py
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = ''
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = ''
+
+
 ##########################################################################
 #
 # API settings
@@ -125,12 +143,6 @@ MESSAGE_TAGS = {
 
 # Should be overridden by development.py or production.py
 DATABASES = None
-
-# Add project/fixtures to the list of places where django looks for
-# fixtures to install.
-FIXTURE_DIRS = (
-    os.path.join(PROJECT_DIR, "fixtures"),
-)
 
 
 ##########################################################################
