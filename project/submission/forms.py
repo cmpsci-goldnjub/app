@@ -1,18 +1,39 @@
 from django import forms
 
-from .models import Submission
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
+from .models import FileSubmission, VideoSubmission
 
 
-class SubmissionForm(forms.ModelForm):
+class VideoSubmissionForm(forms.ModelForm):
+
     class Meta:
-        model = Submission
-        exclude = ['team']
+        model = VideoSubmission
+        fields = ['video_url']
 
-    def clean_image(self):
-        zip_file = self.cleaned_data.get('zipped_submission', False)
-        if zip_file:
-            if zip_file._size > 1*1024*1024:
-                raise forms.ValidationError("Zip file too large ( > 1mb )")
-            return zip_file
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', 'Submit'))
+        super(VideoSubmissionForm, self).__init__(*args, **kwargs)
+
+
+class FileSubmissionForm(forms.ModelForm):
+
+    class Meta:
+        model = FileSubmission
+        fields = ['submission', 'comments']
+
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', 'Submit'))
+        super(FileSubmissionForm, self).__init__(*args, **kwargs)
+
+    def clean_submission(self):
+        submission = self.cleaned_data.get('submission', False)
+        if submission:
+            if submission._size > 1024**3:
+                raise forms.ValidationError("Submission file too large ( > 1 GB )")
+            return submission
         else:
             raise forms.ValidationError("Couldn't read uploaded zip.")

@@ -1,8 +1,23 @@
 from django.contrib import admin
 
-from .models import Submission
+from .models import FileSubmission, VideoSubmission
 
 
-@admin.register(Submission)
-class SubmissionAdmin(admin.ModelAdmin):
-    model = Submission
+class FileSubmissionInline(admin.TabularInline):
+    model = FileSubmission
+
+
+class VideoSubmissionInline(admin.TabularInline):
+    model = VideoSubmission
+
+
+@admin.register(FileSubmission)
+class FileSubmissionAdmin(admin.ModelAdmin):
+    model = FileSubmission
+    list_display = ('team', 'submitter', 'created')
+
+
+@admin.register(VideoSubmission)
+class VideoSubmissionAdmin(admin.ModelAdmin):
+    model = VideoSubmission
+    list_display = ('team', 'submitter', 'created')

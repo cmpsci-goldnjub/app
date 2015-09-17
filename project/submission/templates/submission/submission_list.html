@@ -1,0 +1,77 @@
+{% extends "default.html" %}
+{% load file_tags %}
+
+{% block default_content %}
+<div class="jumbotron">
+  <h1>Team Submissions</h1>
+  <p>
+    <a class="btn btn-success" href="{% url 'submit_video' %}">
+      <i class="fa fa-file-video-o"></i>&nbsp;&nbsp;Submit&nbsp;Video
+    </a>
+    <a class="btn btn-success" href="{% url 'submit_file' %}">
+      <i class="fa fa-file-zip-o"></i>&nbsp;&nbsp;Submit&nbsp;File
+    </a>
+  </p>
+</div>
+
+<div class="row">
+  <h2>File Submissions</h2>
+  <div class="col-xs-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Name</th>
+          <th>Submitter</th>
+          <th>Size</th>
+          <th>MD5 Checksum</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for file in team.filesubmission_set.all %}
+        <tr class="{% if forloop.first %}success{% endif %}">
+          <th scope="row">{{ file.created }}</th>
+          <td>{{ file.submission.file.name | basename }}</td>
+          <td>{{ file.submitter }}</td>
+          <td>{{ file.submission.file.size | sizeof }}</td>
+          <td>{{ file.md5sum }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td>No submissions yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <h2>Video Submissions</h2>
+  <div class="col-xs-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Submitter</th>
+          <th>Video URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for video in team.videosubmission_set.all %}
+        <tr class="{% if forloop.first %}success{% endif %}">
+          <th scope="row">{{ video.created }}</th>
+          <td>{{ video.submitter }}</td>
+          <td>{{ video.video_url }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td>No submissions yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "default.html" %}
+{% load crispy_forms_tags %}
+
+{% block default_content %}
+<div class="jumbotron">
+  <h1 style="display:inline;">New Submission</h1>
+</div>
+
+{% crispy form %}
+
+{% endblock %}

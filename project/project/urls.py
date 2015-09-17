@@ -20,4 +20,5 @@ urlpatterns = [
 
     url(r'^', include("project.teams.urls")),
     url(r'^', include("project.profiles.urls")),
+    url(r'^', include("project.submission.urls")),
 ]
