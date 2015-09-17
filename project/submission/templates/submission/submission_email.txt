@@ -2,7 +2,7 @@ Dear {{ recipient.username }},
 
 {% if submission.submitter.pk == recipient.pk %}You{% else %}{{ submission.submitter.username }}{% endif %} made a new submission for your team at {{ submission.created }}.
 {% if submission.comments %}
-They made the following comments about the submission:
+The following comments were made about the submission:
 
 {{ submission.comments }}
 {% endif %}
