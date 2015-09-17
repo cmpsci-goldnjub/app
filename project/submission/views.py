@@ -1,9 +1,11 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.shortcuts import redirect
+from django.template.loader import render_to_string
 from django.views.generic import View, TemplateView
 from django.views.generic.edit import CreateView
-
 from .models import FileSubmission, VideoSubmission
 from .forms import FileSubmissionForm, VideoSubmissionForm
 
@@ -29,6 +31,16 @@ class SubmissionCreateView(RequiresTeamMixin, CreateView):
         submission.team = self.team
         submission.submitter = self.request.user
         submission.save()
+
+        for member in self.team.members.all():
+            subject = 'New H4H submission!'
+            message = render_to_string("submission/submission_email.txt",
+                                       context={'submission': submission,
+                                                'recipient': member})
+
+            send_mail(subject, message, settings.EMAIL_HOST_USER,
+                      [member.email], fail_silently=False)
+
         return redirect('submission_list')
 
 

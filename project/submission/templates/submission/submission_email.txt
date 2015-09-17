@@ -1,0 +1,11 @@
+Dear {{ recipient.username }},
+
+{% if submission.submitter.pk == recipient.pk %}You{% else %}{{ submission.submitter.username }}{% endif %} made a new submission for your team at {{ submission.created }}.
+{% if submission.comments %}
+They made the following comments about the submission:
+
+{{ submission.comments }}
+{% endif %}
+You can view your team's submission history at http://h4h.mst.edu{% url 'submission_list' %}. Remember, the latest submission before the deadline will be the version used for judging. Refer to the H4H rules at http://h4h.mst.edu/rules/.
+
+- The H4H Team
