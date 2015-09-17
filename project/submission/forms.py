@@ -32,8 +32,8 @@ class FileSubmissionForm(forms.ModelForm):
     def clean_submission(self):
         submission = self.cleaned_data.get('submission', False)
         if submission:
-            if submission._size > 1024**3:
-                raise forms.ValidationError("Submission file too large ( > 1 GB )")
+            if submission._size > 129 * 1024**2:
+                raise forms.ValidationError("Submission file too large ( > 128 MB )")
             return submission
         else:
             raise forms.ValidationError("Couldn't read uploaded zip.")
