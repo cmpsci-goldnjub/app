@@ -170,6 +170,13 @@ class RequestResponseView(FormView):
                 user.request_set.all().delete()
                 self.team.add_member(user)
                 self.team_request.delete()
+
+                # Welcome user to team
+                subject = 'Welcome to your new team!'
+                message = render_to_string("teams/accepted_email.txt",
+                                           context={'request': self.team_request})
+                send_mail(subject, message, settings.EMAIL_HOST_USER,
+                          [user.email], fail_silently=False)
             except TeamFullException:
                 msg = "That team is already full."
                 messages.error(self.request, msg)
