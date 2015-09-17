@@ -1,0 +1,5 @@
+Dear {{ request.user.username }},
+
+Your request to join {{ request.team.name }} has been approved! You can view your new team here: http://h4h.mst.edu{{ request.team.get_absolute_url }}.
+
+- The H4H Team
