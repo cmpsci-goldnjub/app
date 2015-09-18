@@ -27,7 +27,7 @@ class VideoSubmission(models.Model):
     video_url = models.URLField()
 
     def __str__(self):
-        return self.team.name
+        return self.team.name if self.team else "(No Team)"
 
 
 class FileSubmission(models.Model):
@@ -46,7 +46,7 @@ class FileSubmission(models.Model):
     md5sum = models.CharField(max_length=32, blank=True)
 
     def __str__(self):
-        return self.team.name
+        return self.team.name if self.team else "(No Team)"
 
 
 @receiver(post_save, sender=FileSubmission)
